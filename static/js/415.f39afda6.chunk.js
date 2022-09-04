@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkreact_homework_template=self.webpackChunkreact_homework_template||[]).push([[415],{5415:function(e,t,o){o.r(t);var n=o(3329);t.default=function(){return(0,n.jsx)("h1",{style:{fontSize:"78px",color:"#5584b9"},children:"Store and manage your contacts in our PhoneBook"})}}}]);
+//# sourceMappingURL=415.f39afda6.chunk.js.map

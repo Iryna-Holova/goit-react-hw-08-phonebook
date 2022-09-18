@@ -1,17 +1,18 @@
 import { useState } from 'react';
-import { useAddContactMutation, useGetContactsQuery } from 'redux/contactsApi';
+import { useAddContactMutation, useEditContactMutation, useGetContactsQuery } from 'redux/contactsApi';
 import { notify } from 'helpers/notification';
 import { ImUser, ImPhone } from "react-icons/im";
 import { Form, FormTitle, Input, Label } from './ContactForm.styled';
 import { Loader } from 'components/Loader/Loader';
 import { SubmitButton } from 'components/SubmitButton/SubmitButton.styled';
 
-export const ContactForm = () => {
+export const ContactForm = ({id, prevName, prevNumber, onClose }) => {
   const { data: contacts } = useGetContactsQuery();
-  const [addContact, {isLoading}] = useAddContactMutation();
+  const [addContact, { isLoading }] = useAddContactMutation();
+  const [editContact] = useEditContactMutation();
 
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [name, setName] = useState(prevName || '');
+  const [number, setNumber] = useState(prevNumber || '');
 
   const handleChange = event => {
     const { name, value } = event.target;
@@ -30,7 +31,7 @@ export const ContactForm = () => {
     }
   };
 
-  const handleFormSubmit = event => {
+  const handleAddContact = event => {
     event.preventDefault();
 
     const normalisedName = name.toLowerCase();
@@ -45,6 +46,22 @@ export const ContactForm = () => {
     reset();
   }
 
+  const handleEditContact = event => {
+    event.preventDefault();
+
+    const normalisedName = name.toLowerCase();
+    const isInContacts = contacts.find(item => ((item.name.toLowerCase() === normalisedName) && (item.id !== id)));
+
+    if (isInContacts) {
+      notify(`${name} is already in contacts`);
+    } else {
+      const contact = { id, name, number };
+      editContact(contact);
+      onClose();
+    };
+    
+  }
+
   const reset = () => {
     setName('');
     setNumber('');
@@ -52,8 +69,10 @@ export const ContactForm = () => {
 
   return (
     <>
-      <Form onSubmit={handleFormSubmit}>
-        <FormTitle>Add your contacts here</FormTitle>
+      <Form onSubmit={!id ? handleAddContact : handleEditContact}>
+        <FormTitle>
+          {!id ? 'Add your contacts here' : 'Edit contact'}
+        </FormTitle>
         <Label><span><ImUser/> Name:</span><Input
           type="text"
           value={name}
@@ -77,7 +96,7 @@ export const ContactForm = () => {
           disabled={isLoading}
         >
           {!isLoading
-            ? 'Add contact'
+            ? 'Save'
             : <Loader message='Please wait...'/>
           }
         </SubmitButton>

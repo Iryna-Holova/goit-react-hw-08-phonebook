@@ -19,11 +19,12 @@ width: 200px;
 }
 `;
 
-export const DeleteButton = styled.button`
+export const ContactButton = styled.button`
 transition: color 300ms ease-in-out;
-font-size: 20px;
+margin-left: 5px;
 
 :hover, :focus {
     color: #305885;
+    outline: none;
 }
 `;

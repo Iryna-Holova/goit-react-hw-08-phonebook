@@ -4,12 +4,10 @@ export const LoaderWrapper = styled.div `
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
+    height: ${props => props.page ? '100vh' : '20px'};
 `
 
 export const Spinner = styled.span`
-width: 24px;
-height: 24px;
 display: block;
 & svg {
     animation: icon-spin 2s infinite linear;

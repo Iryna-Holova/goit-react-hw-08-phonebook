@@ -2,9 +2,9 @@ import PropTypes from "prop-types";
 import { ImSpinner9 } from 'react-icons/im';
 import { LoaderWrapper, Message, Spinner } from './Loader.styled';
 
-export const Loader = ({message}) => {
+export const Loader = ({message, page}) => {
     return (
-      <LoaderWrapper>
+      <LoaderWrapper page={page}>
         <Spinner><ImSpinner9 /></Spinner>
         {message && <Message>{message}</Message>}
       </LoaderWrapper>

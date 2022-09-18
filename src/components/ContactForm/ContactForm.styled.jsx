@@ -2,14 +2,15 @@ import styled from 'styled-components';
 
 export const FormTitle = styled.h2`
     margin-bottom: 20px;
+    margin-top: 20px;
     text-align: center;
 `
 
 export const Form = styled.form`
 width: 350px;
+height: 234px;
 box-sizing: border-box;
-padding: 20px 30px;
-margin-bottom: 20px;
+padding: 0px 30px 20px 30px;
 border: 1px solid #305885;
 display: flex;
 flex-direction: column;
